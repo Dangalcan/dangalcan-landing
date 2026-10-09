@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Share image</title>
+<!-- The image social networks show when the site is shared.
+     scripts/og/render.ps1 turns this page into assets/img/og.png at
+     1200 x 630, the size LinkedIn, Mastodon and others expect. -->
+<link rel="stylesheet" href="../../assets/css/tokens.css">
+<style>
+  html, body {
+    margin: 0;
+  }
+
+  body {
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+    background-color: var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 60px 60px;
+    color: var(--ink);
+    font-family: var(--sans);
+  }
+
+  .card {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr 330px;
+    gap: 60px;
+    align-items: center;
+    height: 100%;
+    padding: 60px 72px;
+  }
+
+  .label {
+    font-family: var(--mono);
+    font-size: 17px;
+    letter-spacing: var(--track-md);
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--ink);
+  }
+
+  .brand__mark {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    background: var(--ink);
+    color: var(--paper);
+    font-weight: 700;
+  }
+
+  .name {
+    margin: 34px 0 30px;
+    font-family: var(--serif);
+    font-size: 100px;
+    font-weight: 400;
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+  }
+
+  .name em {
+    font-style: italic;
+  }
+
+  .role {
+    max-width: 660px;
+    margin: 0;
+    font-size: 29px;
+    line-height: 1.35;
+  }
+
+  .role mark {
+    padding: 0 0.15em;
+    background: var(--accent);
+    color: var(--ink);
+  }
+
+  .foot {
+    margin-top: 40px;
+    font-size: 15px;
+    white-space: nowrap;
+  }
+
+  .portrait {
+    margin: 0;
+    border: 2px solid var(--ink);
+    background: var(--ink);
+  }
+
+  .portrait img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+</style>
+</head>
+<body>
+  <main class="card">
+    <div>
+      <p class="label brand"><span class="brand__mark">D</span>Dangalcan / Portfolio '26</p>
+      <h1 class="name">Daniel Galván<br><em>Cancio</em>.</h1>
+      <p class="role">PhD student building <mark>software that keeps its promises</mark>, from SLAs to LLM infrastructure and AI agents.</p>
+      <p class="label foot">University of Seville · EOSC-ARENA · LEIA · CERN openlab '26</p>
+    </div>
+    <figure class="portrait">
+      <img src="../../assets/img/portrait.jpg" width="564" height="562" alt="">
+    </figure>
+  </main>
+</body>
+</html>

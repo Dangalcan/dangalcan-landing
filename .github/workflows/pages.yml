@@ -1,0 +1,63 @@
+name: Deploy to GitHub Pages
+
+# The site is static: no build, the files in the repository are the site.
+# A deploy runs the checks in scripts/check.sh, copies the published files
+# into _site/ and hands them to GitHub Pages.
+#
+# One-time setup in the repository: Settings > Pages > Source = GitHub Actions.
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  check:
+    name: Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static checks
+        run: bash scripts/check.sh
+
+  deploy:
+    name: Deploy
+    needs: check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Only what the page serves. README, scripts and workflows stay out.
+      - name: Collect the site files
+        run: |
+          mkdir _site
+          cp -r index.html favicon.svg assets _site/
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload the site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
