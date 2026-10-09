@@ -15,7 +15,9 @@ assets/js/site.js           the two clocks, the marquee loop and the reveal on s
 assets/fonts/*.woff2        Space Grotesk, JetBrains Mono and Fraunces, latin subset, self-hosted
 assets/fonts/OFL-*.txt      their licences (SIL OFL 1.1, redistributed with the files)
 assets/img/portrait.jpg     the hero illustration
+assets/img/og.png           the share image shown in link previews (1200 x 630)
 scripts/check.sh            static checks, run by CI before every deploy
+scripts/og/                 og.html, the source of the share image, and render.ps1, which renders it
 .github/workflows/pages.yml deploy to GitHub Pages on every push to master
 ```
 
@@ -71,13 +73,17 @@ date. The whole card is clickable through the title link. Add
 **Change the palette, fonts or spacing.** Edit `tokens.css`. To replace a font, drop the
 new `woff2` into `assets/fonts/`, add its licence, and update the `@font-face` block.
 
-**Refresh the GitHub figures.** The stats strip and the cards quote GitHub. These commands
-give the current values.
+**Change the share image.** Edit `scripts/og/og.html` and run `.\scripts\og\render.ps1`
+ender.ps1`
+from PowerShell. It renders the page with Edge to `assets/img/og.png` at 1200 x 630. LinkedIn
+caches previews, so after a change its Post Inspector can force a refresh.
 
-```bash
-gh api graphql -f query='query { user(login: "Dangalcan") { createdAt repositories(privacy: PUBLIC, ownerAffiliations: OWNER) { totalCount } } }'
-gh repo view Dangalcan/sla-wizard --json description,primaryLanguage,pushedAt
-```
+**Change the domain.** The site URL is written in four places in the `<head>` of
+`index.html`, the canonical link, `og:url`, `og:image` and the JSON-LD block. Change them
+together. Link previews need absolute URLs, so they cannot be relative.
+
+**Keep every claim backed.** Awards and publications link to a public source, such as the
+handle of a paper or a DOI. A new claim gets its link at the same time it is added.
 
 **Add a section.** Use `<section class="section" id="...">` with a `.wrap` and a
 `.section-head` inside, add its block to `components.css` in page order, and link it from

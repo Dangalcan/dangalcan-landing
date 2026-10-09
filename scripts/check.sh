@@ -28,7 +28,8 @@ done
 if grep -nE 'src="https?://' index.html; then
   echo "external src in index.html"; fail=1
 fi
-if grep -nE '<link[^>]+href="https?://' index.html; then
+# The canonical URL is the site's own address, not a resource it loads.
+if grep -nE '<link[^>]+href="https?://' index.html | grep -v 'rel="canonical"'; then
   echo "external <link> in index.html"; fail=1
 fi
 if grep -nE "url\(['\"]?https?://|@import" assets/css/*.css; then

@@ -382,6 +382,15 @@
     font-size: var(--fs-mono-xs);
   }
 
+  .stats__label a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+
+    &:hover {
+      color: var(--ink);
+    }
+  }
+
   .stats__value {
     display: flex;
     align-items: baseline;
@@ -490,6 +499,14 @@
     @media (width > 900px) {
       font-size: 26px;
     }
+  }
+
+  /* Links inside a card sit above the stretched title link, so they stay clickable. */
+  .repo-card__meta a {
+    position: relative;
+    z-index: 1;
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   .repo-card__slash {
