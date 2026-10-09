@@ -1,0 +1,94 @@
+/* Design tokens: fonts, palette, type scale and layout.
+   To change how the page looks, start here. Components only read these
+   properties, so a value changed here changes everywhere it is used. */
+
+/* Cascade order for the whole site. Later layers win regardless of
+   selector specificity, so components never need !important. */
+@layer tokens, base, components, utilities;
+
+/* ---------- fonts (vendored, latin subset, SIL OFL 1.1) ---------- */
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("../fonts/space-grotesk-var.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("../fonts/jetbrains-mono-var.woff2") format("woff2");
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Fraunces";
+  src: url("../fonts/fraunces-var.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+/* A real italic, so <em> in display text is not a slanted copy of the roman.
+   Drop this block to go back to the browser's synthetic oblique. */
+@font-face {
+  font-family: "Fraunces";
+  src: url("../fonts/fraunces-var-italic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@layer tokens {
+  :root {
+    /* palette */
+    --ink: #0a0a0a;
+    --paper: #f4f1ea;
+    --paper-2: #ebe7dd;
+    --muted: #5a574f;
+    --accent: #d6ff3a;  /* high-vis, used sparingly */
+    --live: #1aa657;    /* the "online" dot in the top bar */
+
+    /* tones derived from the palette */
+    --grid: color-mix(in oklab, var(--ink) 6%, transparent);
+    --rule-faint: color-mix(in oklab, var(--ink) 10%, transparent);
+    --rule-soft: color-mix(in oklab, var(--ink) 14%, transparent);
+    --on-ink-rule: color-mix(in oklab, var(--paper) 22%, transparent);
+    --on-ink-muted: color-mix(in oklab, var(--paper) 55%, transparent);
+    --on-ink-soft: color-mix(in oklab, var(--paper) 72%, transparent);
+
+    /* terminal panel */
+    --term-bar: #161616;
+    --term-border: #2a2a2a;
+    --term-dot: #4a4a4a;
+    --term-title: #888;
+    --term-arg: #9aa0a6;
+    --term-out: #cfd2d6;
+
+    /* type */
+    --sans: "Space Grotesk", system-ui, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+    --serif: "Fraunces", "Times New Roman", serif;
+    --fs-mono-xs: 11px;
+    --fs-mono-sm: 12px;
+    --track-xs: 0.02em;
+    --track-sm: 0.08em;
+    --track-md: 0.12em;
+    --track-lg: 0.18em;
+
+    /* layout. The main breakpoint is 900px, where components switch to
+       their desktop layout with @media (width > 900px). Custom media queries
+       are not supported natively yet, so the number is repeated there. The
+       only other one is 480px, for the top bar's brand suffix. */
+    --page-max: 1280px;
+    --gutter: clamp(20px, 5vw, 32px);
+    --section-pad: 80px;
+    --topbar-offset: 40px;  /* extra scroll on anchor jumps so the two-row bar on phones covers nothing */
+  }
+
+  @media (width > 900px) {
+    :root {
+      --section-pad: 120px;
+      --topbar-offset: 0px;  /* the 120px section padding already clears the bar */
+    }
+  }
+}
