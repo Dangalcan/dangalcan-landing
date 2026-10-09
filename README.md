@@ -98,9 +98,14 @@ The README, the scripts and the workflows are not published.
 One-time setup in the repository is *Settings > Pages > Source = GitHub Actions*.
 `workflow_dispatch` re-runs the same deploy by hand.
 
-All URLs in the page are relative, so the site works both at the root of a user site
-(a repository named `Dangalcan.github.io`) and under a project path
-(`dangalcan.github.io/dangalcan-landing/`).
+The site is served at **https://dangalcan.com**, a custom domain set in
+*Settings > Pages > Custom domain*. The DNS lives at Porkbun, with four `A` records for the
+apex pointing at GitHub Pages (`185.199.108.153` to `185.199.111.153`) and a `CNAME` from
+`www` to `dangalcan.github.io`. With the GitHub Actions source the domain comes from the
+settings, so the `CNAME` file in the repository is not needed for the deploy.
+
+The page links its assets with relative URLs, so it also works under a project path. Only
+the link-preview tags in the `<head>` use the absolute address, see *Change the domain*.
 
 ## Conventions worth keeping
 
